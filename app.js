@@ -29,6 +29,14 @@ var vm = new Vue({
         updateTask: function (task) {
             task.description = this.draft;
             task.editing = false;
+        },
+        deleteTask: function(index) {
+            this.tasks.splice(index, 1)
+        },
+        deleteCompleted: function () {
+            this.tasks = this.tasks.filter ( function (task) {
+                return task.pending;
+            });
         }
     },
     data: {

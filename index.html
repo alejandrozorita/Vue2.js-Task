@@ -20,8 +20,10 @@
             <h2>Tareas</h2>
 
             <ul class="list-group tasks">
-                <li v-for="task in tasks" class="list-group-item"
+
+                <li v-for="(task, index) in tasks" class="list-group-item"
                     :class="{ editing: task.editing, completed: !task.pending }">
+
                     <a @click="toggleStatus(task)" href="#">
                         <span class="glyphicon "
                             :class="task.pending ? 'glyphicon-unchecked' : 'glyphicon-check'"
@@ -37,7 +39,7 @@
                                     <span class="glyphicon glyphicon-edit"
                                             aria-hidden="true"></span>
                                 </a>
-                                <a href="#">
+                                <a @click="deleteTask(index)">
                                     <span  class="glyphicon glyphicon-trash"
                                             aria-hidden="true"></span>
                                 </a>
@@ -65,6 +67,7 @@
                 </li>
             </ul>
 
+            <p> <a @click="deleteCompleted">Elimina las tareas completadas</a></p>
             <form @submit.prevent="createTask" class="new-task-form">
                 <input v-model="new_task" type="text" class="form-control">
                 <button class="btn btn-primary">Crear tarea</button>
