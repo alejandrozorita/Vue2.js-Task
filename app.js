@@ -1,3 +1,14 @@
+Vue.component('app-icon', {
+    template: '<span  :class="cssClasses" aria-hidden="true"></span>',
+    props: ['img'],
+    computed: {
+        cssClasses: function () {
+            return 'glyphicon glyphicon-' + this.img;
+        }
+    }
+});
+
+
 var vm = new Vue({
     el: '#app',
     methods: {
