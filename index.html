@@ -22,7 +22,7 @@
             <ul class="list-group tasks">
                 <li v-for="task in tasks" class="list-group-item"
                     :class="{ editing: task.editing, completed: !task.pending }">
-                    <a href="#">
+                    <a @click="toggleStatus(task)" href="#">
                         <span class="glyphicon "
                             :class="task.pending ? 'glyphicon-unchecked' : 'glyphicon-check'"
                             aria-hidden="true"></span>
@@ -30,15 +30,15 @@
 
                         <template v-if="!task.editing">
                             
-                            <span class="description">{{ task.description }}</span>
+                            <span class="description" >{{ task.description }}</span>
                             
                             <div> 
-                                <a href="#">
+                                <a @click="editTask(task)">
                                     <span class="glyphicon glyphicon-edit"
                                             aria-hidden="true"></span>
                                 </a>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-trash"
+                                    <span  class="glyphicon glyphicon-trash"
                                             aria-hidden="true"></span>
                                 </a>
                             </div> 
@@ -46,15 +46,15 @@
 
                         <template v-else>
                                 
-                            <input type="text" v-model="task.description">
+                            <input type="text" v-model="draft">
                             
                             <div>                
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-ok"
+                                    <span @click="updateTask(task)" class="glyphicon glyphicon-ok"
                                             aria-hidden="true"></span>
                                 </a>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-remove"
+                                    <span @click="discardTask(task)" class="glyphicon glyphicon-remove"
                                             aria-hidden="true"></span>
                                 </a>
                             </div>
