@@ -8,6 +8,10 @@ Vue.component('app-icon', {
     }
 });
 
+Vue.component('app-task', {
+    template: '#task-template',
+    props: ['task', 'index']
+})
 
 var vm = new Vue({
     el: '#app',

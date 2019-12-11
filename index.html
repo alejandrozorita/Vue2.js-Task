@@ -20,47 +20,7 @@
             <h2>Tareas</h2>
 
             <ul class="list-group tasks">
-
-                <li v-for="(task, index) in tasks" class="list-group-item"
-                    :class="{ editing: task.editing, completed: !task.pending }">
-
-                    <a @click="toggleStatus(task)">
-                        <app-icon :img="task.pending ? 'unchecked' : 'check'"></app-icon>
-                        <span class="glyphicon"
-                            aria-hidden="true"></span>
-                    </a>
-
-                        <template v-if="!task.editing">
-                            
-                            <span class="description" >{{ task.description }}</span>
-                            
-                            <div> 
-                                <a @click="editTask(task)">
-                                    <app-icon img="edit"></app-icon>
-                                </a>
-                                <a @click="deleteTask(index)">
-                                    <app-icon img="trash"></app-icon>
-                                </a>
-                            </div> 
-                        </template>
-
-                        <template v-else>
-                                
-                            <input type="text" v-model="draft">
-                            
-                            <div>                
-                                <a @click="updateTask(task)">
-                                    <app-icon img="ok"></app-icon>
-                                </a>
-                                <a @click="discardTask(task)">
-                                    <app-icon img="remove"></app-icon>
-                                </a>
-                            </div>
-                        </template>
-                    
-
-                                       
-                </li>
+                <app-task v-for="(task, index) in tasks" :task="task" :index="index"></app-task>
             </ul>
 
             <p> <a @click="deleteCompleted">Elimina las tareas completadas</a></p>
@@ -77,6 +37,46 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
         <script src="app.js"></script>
+
+        <script type="text/x-template" id="task-template">
+            <li class="list-group-item"
+                :class="{ editing: task.editing, completed: !task.pending }">
+
+                <a @click="toggleStatus(task)">
+                    <app-icon :img="task.pending ? 'unchecked' : 'check'"></app-icon>
+                    <span class="glyphicon"
+                        aria-hidden="true"></span>
+                </a>
+
+                    <template v-if="!task.editing">
+                        
+                        <span class="description" >{{ task.description }}</span>
+                        
+                        <div> 
+                            <a @click="editTask(task)">
+                                <app-icon img="edit"></app-icon>
+                            </a>
+                            <a @click="deleteTask(index)">
+                                <app-icon img="trash"></app-icon>
+                            </a>
+                        </div> 
+                    </template>
+
+                    <template v-else>
+                            
+                        <input type="text" v-model="draft">
+                        
+                        <div>                
+                            <a @click="updateTask(task)">
+                                <app-icon img="ok"></app-icon>
+                            </a>
+                            <a @click="discardTask(task)">
+                                <app-icon img="remove"></app-icon>
+                            </a>
+                        </div>
+                    </template>                
+            </li>
+        </script>
   </body>
 </html>
 
