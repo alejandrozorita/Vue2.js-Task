@@ -10,7 +10,12 @@ Vue.component('app-icon', {
 
 Vue.component('app-task', {
     template: '#task-template',
-    props: ['task', 'index']
+    props: ['task', 'index'],
+    methods: {
+        toggleStatus: function (task) {
+            task.pending = !task.pending;
+        },
+    }
 })
 
 var vm = new Vue({
