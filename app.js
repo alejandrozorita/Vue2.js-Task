@@ -1,5 +1,7 @@
-Vue.component('app-icon', {
-    template: '<span  :class="cssClasses" aria-hidden="true"></span>',
+window.onload = function () {
+    
+    Vue.component('app-icon', {
+    template: '<span :class="cssClasses" aria-hidden="true"></span>',
     props: ['img'],
     computed: {
         cssClasses: function () {
@@ -10,10 +12,30 @@ Vue.component('app-icon', {
 
 Vue.component('app-task', {
     template: '#task-template',
-    props: ['task', 'index'],
+    props: ['task', 'index', 'tasks'],
     methods: {
-        toggleStatus: function (task) {
-            task.pending = !task.pending;
+        toggleStatus: function () {
+            this.task.pending = !this.task.pending;
+        },
+        edit: function () {
+            this.tasks.forEach( function (task) {
+                task.editing = false;
+            });
+
+            this.draft = this.task.description;
+
+            this.task.editing = true;
+            
+        },
+        discard: function () {
+            this.task.editing = false;
+        },
+        update: function () {
+            this.task.description = this.draft;
+            this.task.editing = false;
+        },
+        remove: function(index) {
+            this.tasks.splice(this.index, 1)
         },
     }
 })
@@ -33,26 +55,6 @@ var vm = new Vue({
         toggleStatus: function (task) {
             task.pending = !task.pending;
         },
-        editTask: function (task) {
-            this.tasks.forEach( function (task) {
-                task.editing = false;
-            });
-
-            this.draft = task.description;
-
-            task.editing = true;
-            
-        },
-        discardTask: function (task) {
-            task.editing = false;
-        },
-        updateTask: function (task) {
-            task.description = this.draft;
-            task.editing = false;
-        },
-        deleteTask: function(index) {
-            this.tasks.splice(index, 1)
-        },
         deleteCompleted: function () {
             this.tasks = this.tasks.filter ( function (task) {
                 return task.pending;
@@ -63,7 +65,7 @@ var vm = new Vue({
         new_task: '',
         draft: '',
         tasks: [
-        {
+            {
                 description: 'Aprender Vue.js',
                 pending: true,
                 editing: false
@@ -81,3 +83,5 @@ var vm = new Vue({
         ]
     }
 });
+
+}

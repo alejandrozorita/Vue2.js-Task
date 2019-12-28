@@ -20,7 +20,7 @@
             <h2>Tareas</h2>
 
             <ul class="list-group tasks">
-                <app-task v-for="(task, index) in tasks" is="app-task" :task="task" :index="index"></app-task>
+                <li v-for="(task, index) in tasks" :key="task.id" is="app-task" :task="task" :tasks="tasks" :index="index"></li>
             </ul>
 
             <p> <a @click="deleteCompleted">Elimina las tareas completadas</a></p>
@@ -42,7 +42,7 @@
             <li class="list-group-item"
                 :class="{ editing: task.editing, completed: !task.pending }">
 
-                <a @click="toggleStatus(task)">
+                <a @click="toggleStatus">
                     <app-icon :img="task.pending ? 'unchecked' : 'check'"></app-icon>
                 </a>
 
@@ -51,10 +51,10 @@
                     <span class="description" >{{ task.description }}</span>
                     
                     <div> 
-                        <a @click="editTask(task)">
+                        <a @click="edit">
                             <app-icon img="edit"></app-icon>
                         </a>
-                        <a @click="deleteTask(index)">
+                        <a @click="remove">
                             <app-icon img="trash"></app-icon>
                         </a>
                     </div> 
@@ -65,10 +65,10 @@
                     <input type="text" v-model="draft">
                     
                     <div>                
-                        <a @click="updateTask(task)">
+                        <a @click="update">
                             <app-icon img="ok"></app-icon>
                         </a>
-                        <a @click="discardTask(task)">
+                        <a @click="discard">
                             <app-icon img="remove"></app-icon>
                         </a>
                     </div>
